@@ -1,0 +1,1 @@
+execute if entity @s[advancements=<ADVANCEMENT LIST>] run function bingo:scripts/on_bingo

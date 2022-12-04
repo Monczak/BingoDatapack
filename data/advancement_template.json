@@ -1,0 +1,34 @@
+{
+    "display": {
+        "icon": {
+            "item": "<ITEM ID>"
+        },
+        "title": "<TITLE>",
+        "frame": "task",
+        <BACKGROUND>
+        "description": "<DESCRIPTION>",
+        "show_toast": false,
+        "announce_to_chat": false,
+        "hidden": false
+    },
+    <PARENT>
+    "criteria": {
+        "obtain": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "items": ["<ITEM ID>"],
+                        "count": {
+                            "min": 1,
+                            "max": 99999999
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "rewards": {
+        "function": "bingo:obtain/<ITEM ID TRUNC>"
+    }
+}
