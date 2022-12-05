@@ -8,6 +8,8 @@ scoreboard objectives add GameState dummy
 scoreboard objectives add Constants dummy
 scoreboard objectives add Time dummy
 
+scoreboard players set Installed Constants 1
+
 scoreboard players set 10 Constants 10
 scoreboard players set 100 Constants 100
 
