@@ -10,7 +10,7 @@ class Bingo:
             self.items[i] = [None] * width
 
     def set_item(self, x, y, item):
-        self.items[y][x] = (y * self.width + x, item)
+        self.items[y][x] = item
 
     def get_item(self, x, y):
         return self.items[y][x]

@@ -10,7 +10,7 @@ def main():
 
     flat_items = [item for sublist in bingo.items for item in sublist]
     print("\n".join(
-        [f"{format_advancement_id(item_id)} {item_data['name']}" for item_id, item_data in flat_items]))
+        [f"{item['name']}" for item in flat_items]))
     advancements = generate_advancements(bingo.items)
 
     obtain_functions = funcs.generate_obtain_functions(bingo.items)

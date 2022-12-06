@@ -30,10 +30,9 @@ def create_folder():
 
 def export_board_advancements(advancements):
     def export_advancement(adv, i, root=False):
-        data, bogus = adv
-        adv_id, adv_json = data
-        file_name = ("" if adv_id == -1 else f"{format_advancement_id(adv_id)}_") + (f"bogus_{i:03d}.json" if bogus else "root.json" if root else adv_json["display"]["icon"]["item"].split(":")[
-            1] + ".json")
+        adv_json, bogus = adv
+        file_name = f"{bogus}.json" if bogus else "root.json" if root else adv_json["display"]["icon"]["item"].split(":")[
+            1] + ".json"
         with open(os.path.join(ADVANCEMENT_PATH, "board", file_name), "w") as file:
             file.write(json.dumps(adv_json))
 

@@ -17,5 +17,3 @@ This will create a Bingo directory in the repo's directory. Copy this directory 
 Upon loading your world, the datapack will install itself. To start a game, run `/function bingo:start`.
 
 You can view the bingo grid using the advancement screen. The grid is under the "Bingo Board" tab, with a filled map icon.
-
-Unfortunately due to Minecraft's advancement positioning shenanigans diagonal bingos are impossible.

@@ -1,18 +1,23 @@
 import json
 
-from core.utils import format_advancement_id
+from .utils import bruteforce_hash
 
 ADVANCEMENT_TEMPLATE_PATH = "data/advancement_template.json"
 ROOT_BACKGROUND = "minecraft:textures/block/mangrove_planks.png"
 
+ADVANCEMENT_HASHMAP_SIZE = 16 - 1
+
+
+def get_advancement_path(path):
+    return f"bingo:board/{path}"
+
 
 def get_root_name():
-    return "bingo:board/root"
+    return get_advancement_path("root")
 
 
 def get_advancement_name(item):
-    item_id, item_data = item
-    return f"bingo:board/{format_advancement_id(item_id)}_{item_data['id'].split(':')[1]}"
+    return get_advancement_path(item['id'].split(':')[1])
 
 
 def prepare_root(adv_json, item_data):
@@ -21,25 +26,25 @@ def prepare_root(adv_json, item_data):
     adv.pop("rewards", None)
     adv["criteria"]["obtain"]["trigger"] = "minecraft:tick"
     adv["criteria"]["obtain"].pop("conditions", None)
-    return ((-1, adv), False)
+    return (adv, None)
 
 
-def prepare_bogus(adv_json, parent):
+def prepare_bogus(adv_json, parent, name):
     adv = json.loads(adv_json.replace("<ITEM ID>", "minecraft:air").replace("<TITLE>", "").replace(
         "<DESCRIPTION>", "").replace("<PARENT>", f"\"parent\":\"{parent}\",").replace("<BACKGROUND>", ""))
     adv.pop("rewards", None)
     adv["criteria"]["obtain"]["trigger"] = "minecraft:tick"
     adv["criteria"]["obtain"].pop("conditions", None)
 
-    return ((-1, adv), True)
+    return (adv, name)
 
 
 def prepare_advancement(adv_json: str, item, parent):
-    item_id, item_data = item
+    item_data = item
     adv = json.loads(adv_json.replace("<ITEM ID>", item_data["id"]).replace("<TITLE>", item_data["name"]).replace(
         "<DESCRIPTION>", f"Obtain {item_data['name']}").replace("<PARENT>", f"\"parent\":\"{parent}\",").replace(
             "<BACKGROUND>", "").replace("<ITEM ID TRUNC>", item_data["id"].split(":")[1]))
-    return ((item_id, adv), False)
+    return (adv, None)
 
 
 def generate_advancements(items):
@@ -47,7 +52,7 @@ def generate_advancements(items):
         advancement_template = file.read()
 
     width = len(items)
-    advancements = [None] * ((width + 1) * width + 1)
+    advancements = [None] * ((width + 2) * width + 1)
 
     advancements[0] = prepare_root(advancement_template, {
         "id": "minecraft:filled_map",
@@ -56,12 +61,16 @@ def generate_advancements(items):
 
     i = 1
     for y in range(width):
+        col1_bogus_name = bruteforce_hash(ADVANCEMENT_HASHMAP_SIZE, y)
+        advancements[i] = prepare_bogus(
+            advancement_template, get_root_name(), col1_bogus_name)
+        i += 1
         for x in range(width):
             advancements[i] = prepare_advancement(
-                advancement_template, items[y][x], get_root_name() if x == 0 else get_advancement_name(items[y][x - 1]))
+                advancement_template, items[y][x], get_advancement_path(col1_bogus_name) if x == 0 else get_advancement_name(items[y][x - 1]))
             i += 1
         advancements[i] = prepare_bogus(
-            advancement_template, get_advancement_name(items[y][width - 1]))
+            advancement_template, get_advancement_name(items[y][width - 1]), f"bogus_{i:03d}")
         i += 1
 
     return advancements
