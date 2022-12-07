@@ -9,4 +9,3 @@ execute if data storage bingo:temp {Sharing: 0} if score Playing GameState match
 scoreboard players operation CurrentTeam Temp = @s Teams
 data modify storage bingo:temp Sharing set value 1
 execute if data storage bingo:temp {WasPlaying: 1} run function bingo:share_advancements
-data modify storage bingo:temp Sharing set value 0
