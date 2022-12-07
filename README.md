@@ -17,3 +17,9 @@ This will create a Bingo directory in the repo's directory. Copy this directory 
 Upon loading your world, the datapack will install itself. To start a game, run `/function bingo:start`.
 
 You can view the bingo grid using the advancement screen. The grid is under the "Bingo Board" tab, with a filled map icon.
+
+### Teams
+
+Playing in teams allows sharing bingo progress with other people in your team. To play in teams, stand near the players you want to team up with (they should be in a 3 block radius) and perform `/trigger TeamUp`. You cannot team up with people which are already in a team.
+
+To disband a team, perform `/trigger DisbandTeam`. This will remove the entire team - other players will need to team up again after this.
