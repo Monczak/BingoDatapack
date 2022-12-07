@@ -1,0 +1,1 @@
+execute as @a[advancements={<ADVANCEMENT>=true}] if score @s Teams = CurrentTeam Temp unless score @s Teams matches 0 run execute as @a[advancements={<ADVANCEMENT>=false}] if score @s Teams = CurrentTeam Temp unless score @s Teams matches 0 run advancement grant @s only <ADVANCEMENT>

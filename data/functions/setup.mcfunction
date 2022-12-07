@@ -7,6 +7,16 @@ scoreboard objectives add SoundEffects dummy
 scoreboard objectives add GameState dummy
 scoreboard objectives add Constants dummy
 scoreboard objectives add Time dummy
+scoreboard objectives add Teams dummy
+
+scoreboard objectives add Temp dummy
+
+scoreboard objectives add TeamUp trigger
+scoreboard players set @a TeamUp 0
+scoreboard players enable @a TeamUp
+scoreboard objectives add DisbandTeam trigger
+scoreboard players set @a DisbandTeam 0
+scoreboard players enable @a DisbandTeam
 
 scoreboard players set Installed Constants 1
 
@@ -24,3 +34,6 @@ scoreboard players set SFXTimer Timers -1
 scoreboard players set AnnounceBingo SoundEffects 0
 
 scoreboard players set Playing GameState 0
+scoreboard players set TeamCount GameState 0
+
+scoreboard players set @a Teams 0

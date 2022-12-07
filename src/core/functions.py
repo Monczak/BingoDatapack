@@ -1,8 +1,9 @@
 from core.utils import format_advancement_id
 
 
-OBTAIN_FUNCTION_TEMPLATE_PATH = "data/functions/obtain_function_template.mcfunction"
-CHECK_BINGO_FUNCTION_TEMPLATE_PATH = "data/functions/check_bingo_template.mcfunction"
+OBTAIN_FUNCTION_TEMPLATE_PATH = "data/functions/templates/obtain_function_template.mcfunction"
+CHECK_BINGO_FUNCTION_TEMPLATE_PATH = "data/functions/templates/check_bingo_template.mcfunction"
+SHARE_ADVANCEMENTS_FUNCTION_TEMPLATE_PATH = "data/functions/templates/share_advancements_template.mcfunction"
 
 
 def generate_obtain_function(item_data):
@@ -43,5 +44,18 @@ def generate_bingo_check(items):
     diag_checks = [func.replace("<ADVANCEMENT LIST>", get_check(get_left_diagonal(
         items))), func.replace("<ADVANCEMENT LIST>", get_check(get_right_diagonal(items)))]
 
-    # Add diagonal checks back if we figure out how advancements are positioned in columns
     return "\n".join(row_checks + col_checks + diag_checks)
+
+
+def generate_sharing_function(advancements):
+    with open(SHARE_ADVANCEMENTS_FUNCTION_TEMPLATE_PATH, "r") as file:
+        func_template = file.read()
+
+    func = ""
+
+    for adv, bogus in advancements:
+        if not bogus:
+            id = f"bingo:board/{adv['display']['icon']['item'].split(':')[1]}"
+            func += func_template.replace("<ADVANCEMENT>", id) + "\n"
+
+    return func

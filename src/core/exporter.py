@@ -58,11 +58,18 @@ def export_bingo_check(function):
         file.write(function)
 
 
+def export_advancement_sharing(function):
+    with open(os.path.join(FUNCTIONS_PATH, "share_advancements" + ".mcfunction"), "w") as file:
+        file.write(function)
+
+
 def export_functions():
     shutil.copytree("data/functions/effects",
                     os.path.join(FUNCTIONS_PATH, "effects"))
     shutil.copytree("data/functions/scripts",
                     os.path.join(FUNCTIONS_PATH, "scripts"))
+    shutil.copytree("data/functions/teams",
+                    os.path.join(FUNCTIONS_PATH, "teams"))
     shutil.copytree("data/functions/timer",
                     os.path.join(FUNCTIONS_PATH, "timer"))
 
@@ -73,3 +80,5 @@ def export_functions():
     shutil.copy("data/functions/tick.mcfunction", FUNCTIONS_PATH)
 
     shutil.copy("data/functions/start.mcfunction", FUNCTIONS_PATH)
+
+    shutil.copy("data/functions/trigger_handler.mcfunction", FUNCTIONS_PATH)

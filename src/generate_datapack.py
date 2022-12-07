@@ -15,11 +15,13 @@ def main():
 
     obtain_functions = funcs.generate_obtain_functions(bingo.items)
     check_bingo_function = funcs.generate_bingo_check(bingo.items)
+    share_advancements_function = funcs.generate_sharing_function(advancements)
 
     export.create_folder()
     export.export_board_advancements(advancements)
     export.export_obtain_functions(obtain_functions)
     export.export_bingo_check(check_bingo_function)
+    export.export_advancement_sharing(share_advancements_function)
     export.export_functions()
 
 

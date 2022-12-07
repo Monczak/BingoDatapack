@@ -3,3 +3,5 @@ scoreboard players set Playing GameState 1
 advancement revoke @a from bingo:board/root
 
 scoreboard players set StartGame SoundEffects 1
+
+data modify storage bingo:temp Sharing set value 0
